@@ -27,15 +27,8 @@ def test_cell(window):
     cell4 = Cell(window)
     cell4.draw(450, 50, 550, 150)
 
-    cell1.remove_wall("left")
-    cell2.remove_wall("right")
-    cell3.remove_wall("top")
-    cell4.remove_wall("bottom")
 
-    # cell1.enable_wall("left")
-    # cell2.enable_wall("right")
-    # cell3.enable_wall("top")
-    # cell4.enable_wall("bottom")
+
 
     # vertical cells
     cell5 = Cell(window)
