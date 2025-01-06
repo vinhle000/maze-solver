@@ -18,33 +18,35 @@ def main():
 
 
 def test_cell(window):
-    cell1 = Cell(50, 50, 150, 150, window)
-    cell2 = Cell(200, 50, 300, 150, window)
-    cell3 = Cell(350, 50, 450, 150, window)
-    cell4 = Cell(450, 50, 550, 150, window)
+    cell1 = Cell(window)
+    cell1.draw(50, 50, 150, 150)
+    cell2 = Cell(window)
+    cell2.draw(200, 50, 300, 150)
+    cell3 = Cell(window)
+    cell3.draw(350, 50, 450, 150)
+    cell4 = Cell(window)
+    cell4.draw(450, 50, 550, 150)
 
     cell1.remove_wall("left")
     cell2.remove_wall("right")
     cell3.remove_wall("top")
     cell4.remove_wall("bottom")
 
-    cell1.enable_wall("left")
-    cell2.enable_wall("right")
-    cell3.enable_wall("top")
-    cell4.enable_wall("bottom")
+    # cell1.enable_wall("left")
+    # cell2.enable_wall("right")
+    # cell3.enable_wall("top")
+    # cell4.enable_wall("bottom")
 
     # vertical cells
-    cell5 = Cell(50, 150, 150, 250, window)
-    cell6 = Cell(50, 500, 150, 650, window)
+    cell5 = Cell(window)
+    cell5.draw(50, 150, 150, 250)
+    cell6 = Cell(window)
+    cell6.draw(50, 500, 150, 650)
 
 
     cells = [cell1, cell2, cell3, cell4, cell5, cell6]
 
-    cell_num = 1
-    for cell in cells:
-        print(' cell num:  ', cell_num)
-        cell_num += 1
-        cell.draw()
+
 
     cell1.draw_move(cell2)
     cell4.draw_move(cell3)
