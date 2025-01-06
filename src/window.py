@@ -8,7 +8,7 @@ class Window:
 
         self.root.title("Window Title Here")
 
-        self.canvas = Canvas(self.root, width=self.width, height=self.height)
+        self.canvas = Canvas(self.root, width=self.width, height=self.height, bg="white")
         self.canvas.pack(fill=BOTH, expand=True)
 
         self.running = False
@@ -28,6 +28,6 @@ class Window:
         self.running = False
 
     def draw_line(self, line, fill_color="black"):
-       line.draw(self.canvas)
+       line.draw(self.canvas, fill_color)
 
 
