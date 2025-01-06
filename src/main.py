@@ -8,8 +8,9 @@ def main():
     print("Hello, World!")
     window = Window(800, 600)
 
-    line1 = Line(Point(30, 100), Point(500, 500))
-    window.draw_line(line1)
+    # test Line
+    # line1 = Line(Point(30, 100), Point(500, 500))
+    # window.draw_line(line1)
 
     test_cell(window)
 
@@ -32,10 +33,22 @@ def test_cell(window):
     cell3.enable_wall("top")
     cell4.enable_wall("bottom")
 
-    cells = [cell1, cell2, cell3, cell4]
+    # vertical cells
+    cell5 = Cell(50, 150, 150, 250, window)
+    cell6 = Cell(50, 500, 150, 650, window)
 
+
+    cells = [cell1, cell2, cell3, cell4, cell5, cell6]
+
+    cell_num = 1
     for cell in cells:
+        print(' cell num:  ', cell_num)
+        cell_num += 1
         cell.draw()
+
+    cell1.draw_move(cell2)
+    cell4.draw_move(cell3)
+    cell5.draw_move(cell6, True)
 
 if __name__ == "__main__":
     main()

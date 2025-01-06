@@ -30,7 +30,27 @@ class Cell:
             bottom_wall_line = Line(Point(self._x1, self._y2), Point(self._x2, self._y2))
             bottom_wall_line.draw(self._win.canvas)
 
-    #  To set a Window object as input and save it as a data member.
+
+    def draw_move(self, to_cell, undo=False):
+        fill_color = "red"
+        if undo:
+            fill_color = "grey" #  For backtracking
+
+        # self cell coordinates
+        x = (self._x2 - self._x1)/2 + self._x1
+        y = (self._y2 - self._y1)/2 + self._y1
+        start_point = Point(x, y)
+
+        # to_cell coordinates
+        x = (to_cell._x2 - to_cell._x1)/2  + to_cell._x1
+        y = (to_cell._y2 - to_cell._y1)/2 + to_cell._y1
+        end_point = Point(x,y)
+
+        move_line = Line(start_point, end_point)
+        move_line.draw(self._win.canvas, fill_color)
+
+
+    #  Access to set a Window object as input and save it as a data member.
     def set_window(self, win):
         self._win = win
         self.draw()
