@@ -12,6 +12,7 @@ class Cell:
         self._x2 = None
         self._y2 = None
         self._win = win
+        self.visited = False
 
     def draw(self, x1, y1, x2, y2):
         if self._win is None:
@@ -67,6 +68,16 @@ class Cell:
         move_line = Line(start_point, end_point)
         move_line.draw(self._win.canvas, fill_color)
 
+
+    def set_wall(self, wall_dir, status=True):
+        if wall_dir == "left":
+            self.has_left_wall = status
+        elif wall_dir == "right":
+            self.has_right_wall = status
+        elif wall_dir == "top":
+            self.has_top_wall = status
+        elif wall_dir == "bottom":
+            self.has_bottom_wall = status
 
     # #  Access to set a Window object as input and save it as a data member.
     # def set_window(self, win):
