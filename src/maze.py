@@ -88,22 +88,22 @@ class Maze:
             if self._is_in_bounds(i, j - 1):
                 left = self._cells[i][j - 1]
                 if not left.visited:
-                    next_directions.append((i, j-1, 'left', 'right', 'LEFT'))
+                    next_directions.append((i, j-1, 'left', 'right'))
 
             if self._is_in_bounds(i - 1, j):
                 top = self._cells[i - 1][j]
                 if not top.visited:
-                    next_directions.append((i - 1, j, 'top', 'bottom', 'TOP'))
+                    next_directions.append((i - 1, j, 'top', 'bottom'))
 
             if self._is_in_bounds(i, j + 1):
                 right = self._cells[i][ j+1]
                 if not right.visited:
-                    next_directions.append((i, j + 1, 'right', 'left', 'RIGHT'))
+                    next_directions.append((i, j + 1, 'right', 'left'))
 
             if self._is_in_bounds(i + 1, j):
                 bottom = self._cells[i +1][j]
                 if not bottom.visited:
-                    next_directions.append((i +1, j, 'bottom', 'top', 'BOTTOM'))
+                    next_directions.append((i +1, j, 'bottom', 'top'))
 
 
             if len(next_directions) == 0:
@@ -111,10 +111,8 @@ class Maze:
                 return
             else:
                 num = random.randrange(0, len(next_directions))
-                next_i, next_j, curr_wall, next_wall, direction = next_directions[num]
-                # print(f"breaking wall between ({i}, {j}) and ({next_i}, {next_j})")
-                # print(f"moving to {direction} .>>>> curr_wall: {curr_wall} ||| next_wall: {next_wall}")
-                # print("")
+                next_i, next_j, curr_wall, next_wall = next_directions[num]
+
                 self._cells[i][j].set_wall(curr_wall, False)
                 self._cells[next_i][next_j].set_wall(next_wall, False)
                 self._break_walls_r(next_i, next_j)
@@ -141,47 +139,33 @@ class Maze:
     def solve(self):
        return self._solve_r(0, 0)
 
-    # [ ]] It returns False  -> if the current cell is a loser cell.
+
     def _solve_r(self, i, j):
         self._animate()
         cell = self._cells[i][j]
         cell.visited = True
 
-    # [ ] return True  -> if the current cell is an end cell, OR if it leads to the end cell.
         if self.check_winning_cell(i, j):
             return True
 
-
         # left path
-        # [ ] a cell in that direction,
         if self._is_in_bounds(i , j - 1):
             left = self._cells[i][j-1]
             if not cell.has_wall('left') and not left.has_wall('right') and not left.visited:
-
-                print('')
-                print("Move LEFT")
-                print(f"Current cell: (row{i}, col{j}) ||| Next cell: (row{i}, col{j-1})")
                 cell.draw_move(left)
                 if self._solve_r(i, j-1):
                     return True
-                print('')
-                print("Undo LEFT")
-                cell.draw_move(left, True) # undo as red color
+                else:
+                    cell.draw_move(left, True) # undo as red color
 
         # top path
         if self._is_in_bounds(i-1, j):
             top = self._cells[i-1][j]
             if not cell.has_wall('top') and not top.has_wall('bottom') and not top.visited:
-
-                print('')
-                print("Move TOP")
-                print(f"Current cell: (row{i}, col{j}) ||| Next cell: (row{i-1}, col{j})")
                 cell.draw_move(top)
                 if self._solve_r(i-1, j):
                     return True
                 else:
-                    print('')
-                    print("Undo TOP")
                     cell.draw_move(top, True) # undo as red color
 
 
@@ -189,31 +173,20 @@ class Maze:
         if self._is_in_bounds(i , j + 1):
             right = self._cells[i][j+1]
             if not cell.has_wall('right') and not right.has_wall('left') and not right.visited:
-                print('')
-                print("Move RIGHT")
-                print(f"Current cell: (row{i}, col{j}) ||| Next cell: (row{i}, col{j+1})")
                 cell.draw_move(right)
                 if self._solve_r(i, j+1):
                     return True
                 else:
-                    print('')
-                    print("Undo RIGHT")
                     cell.draw_move(right, True) # undo as red color
-
 
         # bottom path
         if self._is_in_bounds(i+1 , j):
             bottom = self._cells[i+1][j]
             if not cell.has_wall('bottom') and not bottom.has_wall('top') and not bottom.visited:
-                print('')
-                print("Move BOTTOM")
-                print(f"Current cell: (row{i}, col{j}) ||| Next cell: (row{i+1}, col{j})")
                 cell.draw_move(bottom)
                 if self._solve_r(i+1, j):
                     return True
                 else:
-                    print('')
-                    print("Undo BOTTOM")
                     cell.draw_move(bottom, True) # undo as red color
         else:
             return False
