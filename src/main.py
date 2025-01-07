@@ -13,16 +13,17 @@ def main():
     # window.draw_line(line1)
 
     # test_cell(window)
-    test_maze_graphic()
+    test_maze_graphic(window)
 
     window.wait_for_close()
 
-def test_maze_graphic():
-    window = Window(800, 600)
+def test_maze_graphic(window):
+
     num_cols = 8
     num_rows = 6
     m1 = Maze(0, 0, num_rows, num_cols, 100, 100, window)
     m1.break_walls()
+    m1.solve()
     window.wait_for_close()
 
 def test_cell(window):
@@ -37,18 +38,13 @@ def test_cell(window):
     cell4.draw(450, 50, 550, 150)
 
 
-
-
     # vertical cells
     cell5 = Cell(window)
     cell5.draw(50, 150, 150, 250)
     cell6 = Cell(window)
     cell6.draw(50, 500, 150, 650)
 
-
     cells = [cell1, cell2, cell3, cell4, cell5, cell6]
-
-
 
     cell1.draw_move(cell2)
     cell4.draw_move(cell3)

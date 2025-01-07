@@ -36,7 +36,16 @@ class Tests(unittest.TestCase):
         m1.break_walls()
 
 
-
+    def test_maze_reset_cells_visited(self):
+        num_rows = 10
+        num_cols = 12
+        m1 = Maze(0, 0, num_rows, num_cols, 10, 10)
+        m1._reset_cells_visited()
+        for i in range(num_rows):
+            for j in range(num_cols):
+                self.assertFalse(
+                    m1._cells[i][j].visited,
+                )
 
 
     # Always Last method for manual test

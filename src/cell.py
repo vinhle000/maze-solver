@@ -24,7 +24,7 @@ class Cell:
 
         if self.has_left_wall:
             line = Line(Point(self._x1, self._y1), Point(self._x1, self._y2))
-            self._win.draw_line(line, "grey")
+            self._win.draw_line(line)
         else:
             line = Line(Point(self._x1, self._y1), Point(self._x1, self._y2))
             self._win.draw_line(line, "white")
@@ -51,56 +51,40 @@ class Cell:
             self._win.draw_line(line, "white")
 
     def draw_move(self, to_cell, undo=False):
-        fill_color = "red"
+        fill_color = "grey"
         if undo:
-            fill_color = "grey" #  For backtracking
+            fill_color = "red" #  For backtracking
 
-        # self cell coordinates
-        x = (self._x2 - self._x1)/2 + self._x1
-        y = (self._y2 - self._y1)/2 + self._y1
-        start_point = Point(x, y)
+         # self cell coordinates (center)
+        start_x = (self._x2 + self._x1) / 2
+        start_y = (self._y2 + self._y1) / 2
+        start_point = Point(start_x, start_y)
 
-        # to_cell coordinates
-        x = (to_cell._x2 - to_cell._x1)/2  + to_cell._x1
-        y = (to_cell._y2 - to_cell._y1)/2 + to_cell._y1
-        end_point = Point(x,y)
-
+        # to_cell coordinates (center)
+        end_x = (to_cell._x2 + to_cell._x1) / 2
+        end_y = (to_cell._y2 + to_cell._y1) / 2
+        end_point = Point(end_x, end_y)
         move_line = Line(start_point, end_point)
         move_line.draw(self._win.canvas, fill_color)
 
 
-    def set_wall(self, wall_dir, status=True):
+    def set_wall(self, wall_dir, has_wall=True):
         if wall_dir == "left":
-            self.has_left_wall = status
+            self.has_left_wall = has_wall
         elif wall_dir == "right":
-            self.has_right_wall = status
+            self.has_right_wall = has_wall
         elif wall_dir == "top":
-            self.has_top_wall = status
+            self.has_top_wall = has_wall
         elif wall_dir == "bottom":
-            self.has_bottom_wall = status
+            self.has_bottom_wall = has_wall
 
-    # #  Access to set a Window object as input and save it as a data member.
-    # def set_window(self, win):
-    #     self._win = win
-
-
-    # def remove_wall(self, wall):
-    #     if wall == "left":
-    #         self.has_left_wall = False
-    #     elif wall == "right":
-    #         self.has_right_wall = False
-    #     elif wall == "top":
-    #         self.has_top_wall = False
-    #     elif wall == "bottom":
-    #         self.has_bottom_wall = False
-
-
-    # def enable_wall(self, wall):
-    #     if wall == "left":
-    #         self.has_left_wall = True
-    #     elif wall == "right":
-    #         self.has_right_wall = True
-    #     elif wall == "top":
-    #         self.has_top_wall = True
-    #     elif wall == "bottom":
-    #         self.has_bottom_wall = True
+    def has_wall(self, wall_dir):
+        if wall_dir == "left":
+            return self.has_left_wall
+        elif wall_dir == "right":
+            return self.has_right_wall
+        elif wall_dir == "top":
+            return self.has_top_wall
+        elif wall_dir == "bottom":
+            return self.has_bottom_wall
+        return False
